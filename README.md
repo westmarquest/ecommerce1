@@ -53,6 +53,7 @@ This project provides a back end for an e-commerce website using Express.js and 
 `npm start`
 
 6. Use Insomnia Core or a similar tool to test the API routes for categories, products, and tags.
+   A sample video for testing routes can be viewed here : `https://drive.google.com/file/d/1e7eSm1Ke5rIFG2rUUncxx7NQMXGxypfy/view?usp=sharing`
 
 
 
