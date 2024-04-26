@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
+const Product = require("./Product");
 
 const sequelize = require("../config/connection");
 
@@ -31,5 +32,10 @@ ProductTag.init(
     modelName: "product_tag",
   }
 );
+
+ProductTag.belongsTo(Product, {
+  foreignKey: "product_id",
+  onDelete: "CASCADE",
+}); // This will add the foreign key constraint
 
 module.exports = ProductTag;

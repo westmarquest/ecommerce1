@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Product, Category, Tag, ProductTag } = require("../../models");
+const sequelize = require("../../config/connection");
 
 // The `/api/products` endpoint
 
@@ -32,69 +33,41 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Create new product
+// Create new category
 router.post("/", async (req, res) => {
   try {
-    // Create a new product
-    const newProduct = await Product.create(req.body);
-
-    // If there are product tags, create pairings in the ProductTag model
-    if (req.body.tagIds && req.body.tagIds.length) {
-      const productTagIdArr = req.body.tagIds.map((tag_id) => {
-        return {
-          product_id: newProduct.id,
-          tag_id,
-        };
-      });
-      await ProductTag.bulkCreate(productTagIdArr);
-    }
-
-    res.status(201).json(newProduct);
+    // Create a new category
+    const newCategory = await Category.create(req.body);
+    res.status(201).json(newCategory);
   } catch (error) {
     res.status(400).json(error);
   }
 });
 
-// Update product
+// Update category
 router.put("/:id", async (req, res) => {
   try {
-    // Update product data
-    const [affectedRows] = await Product.update(req.body, {
+    // Update category data
+    const [affectedRows] = await Category.update(req.body, {
       where: { id: req.params.id },
     });
-
-    // If there are product tags, update pairings in the ProductTag model
-    if (req.body.tagIds && req.body.tagIds.length) {
-      // Delete existing product tags
-      await ProductTag.destroy({ where: { product_id: req.params.id } });
-
-      // Create new product tags
-      const productTagIdArr = req.body.tagIds.map((tag_id) => {
-        return {
-          product_id: req.params.id,
-          tag_id,
-        };
-      });
-      await ProductTag.bulkCreate(productTagIdArr);
-    }
-
-    res.json({ message: "Product updated successfully" });
+    res.json({ message: "Category updated successfully" });
   } catch (error) {
     res.status(400).json(error);
   }
 });
 
-// Delete product
+// Delete category
 router.delete("/:id", async (req, res) => {
   try {
-    // Delete one product by its `id` value
-    const deletedProduct = await Product.destroy({
+    // Delete one category by its `id` value
+    const deletedCategory = await Category.destroy({
       where: { id: req.params.id },
     });
-    if (!deletedProduct) {
-      return res.status(404).json({ message: "Product not found" });
+    if (!deletedCategory) {
+      return res.status(404).json({ message: "Category not found" });
     }
-    res.json({ message: "Product deleted successfully" });
+    res.json({ message: "Category deleted successfully" });
   } catch (error) {
     res.status(500).json(error);
   }

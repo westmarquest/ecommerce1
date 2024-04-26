@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const { Product, Category, Tag, ProductTag } = require("../../models");
+const sequelize = require("../../config/connection");
+
+// Then use sequelize in your route file as needed
 
 // The `/api/products` endpoint
 
