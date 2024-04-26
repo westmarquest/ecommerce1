@@ -37,7 +37,7 @@ This project provides a back end for an e-commerce website using Express.js and 
 ## Installation and Usage
 
 1. Clone the repository:
-
+  `https://github.com/westmarquest/ecommerce1/tree/main`
 
 2. Install dependencies:
    `npm install`
